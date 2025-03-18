@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Amsterdam";
+  src: url("./assets/font/Amsterdam.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Alta";
+  src: url("./assets/font/Alta.otf") format("opentype");
+}
+@font-face {
+  font-family: "CormorantGaramond";
+  src: url("./assets/font/AltaCormorantGaramond-Regular.ttf") format("opentype");
+}
+@font-face {
+  font-family: "EyesomeScript";
+  src: url("./assets/font/Eyesome Script.otf") format("opentype");
+}
+@font-face {
+  font-family: "Lustria";
+  src: url("./assets/font/Lustria-Regular.ttf") format("opentype");
+}
+@font-face {
+  font-family: "Blanka-Regular";
+  src: url("./assets/font/Blanka-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "Symphony";
+  src: url("./assets/font/Symphony-Regular.ttf") format("opentype");
+}
