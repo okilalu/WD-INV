@@ -3,7 +3,7 @@ import "../App.css";
 import { motion } from "framer-motion";
 import PersonImage from "../assets/img/person1.jpg";
 import BgImage from "../assets/img/bgnat.jpg";
-import Bgcover from "../assets/img/handCover.png";
+import BgCover from "../assets/img/handCover.png";
 import { IoIosMail } from "react-icons/io";
 
 export default function Cover({ closeModal }) {
@@ -20,7 +20,7 @@ export default function Cover({ closeModal }) {
         isClosing ? "translate-y-full" : "translate-y-0"
       } text-black text-center p-2 h-full w-full flex justify-center items-center bg-center bg-cover transition-all fixed z-50 `}
       style={{
-        backgroundImage: `url(${Bgcover})`,
+        backgroundImage: `url(${BgCover})`,
       }}
     >
       <div className="border-4 rounded-4xl p-1 w-[97%] max-w-2xl">
