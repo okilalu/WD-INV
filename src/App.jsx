@@ -69,7 +69,7 @@ function App() {
             <img
               src={PersonImage}
               alt=""
-              className="w-[18rem] h-[25rem] md:w-[18rem] lg:w-[20rem] rounded-full py-10"
+              className="w-[18rem] h-[25rem] md:w-[18rem] lg:w-[20rem] rounded-full py-10 "
             />
           </div>
           <div className="text-5xl md:text-5xl flex justify-center">
@@ -111,22 +111,27 @@ function App() {
       <div
         id="Couple"
         className="flex flex-col justify-center items-center p-10 md:p-16 bg-gradient-to-b from-[#faae3c] to-[#1aa39a]"
-        data-aos="fade-in"
         // style={{
         //   width: "100%",
         //   backgroundImage: `url(${BgImage})`,
         // }}
       >
         <div className="text-center text-sm text-black font-semibold capitalize w-[90%] max-w-lg md:max-w-2xl">
-          <h1 className="mb-5 text-lg md:text-xl">
+          <h1 className="mb-5 text-lg md:text-xl" data-aos="fade-down">
             ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ ٱللَّٰهِ وَبَرَكَاتُهُ
           </h1>
-          <h3 className="text-sm md:text-base lg:text-lg leading-relaxed">
+          <h3
+            className="text-sm md:text-base lg:text-lg leading-relaxed"
+            data-aos="fade-up"
+          >
             Atas Berkah dan Rahmat Allah Subhanallahu Wa Ta'ala. Tanpa
             mengurangi rasa hormat. Kami mengundang Bapak/Ibu/Saudara/i serta
             kerabat sekalian untuk menghadiri acara pernikahan kami :
           </h3>
-          <div className="py-2 flex flex-col justify-center items-center">
+          <div
+            className="py-2 flex flex-col justify-center items-center"
+            data-aos="zoom-in"
+          >
             <img
               src={PersonImage}
               alt=""
@@ -140,8 +145,16 @@ function App() {
               excepturi sint.
             </h4>
           </div>
-          <h1 className="font-[Amsterdam] px-5 text-3xl md:text-4xl">&</h1>
-          <div className="flex flex-col justify-center items-center">
+          <h1
+            className="font-[Amsterdam] px-5 text-3xl md:text-4xl"
+            data-aos="fade-left"
+          >
+            &
+          </h1>
+          <div
+            className="flex flex-col justify-center items-center"
+            data-aos="zoom-in"
+          >
             <img
               src={PersonImage}
               alt=""
