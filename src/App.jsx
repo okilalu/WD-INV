@@ -1,5 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import Aos from "aos";
+import "aos/dist/aos.css";
 import PersonImage from "./assets/img/cth.jpg";
 import MandiriImage from "./assets/img/mandiri.png";
 import BsiImage from "./assets/img/BSI.png";
@@ -14,7 +16,12 @@ function App() {
   const [modal, setModal] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef(null);
-  const textRef = useRef(null);
+  const bsiRef = useRef();
+  const mandiriRef = useRef();
+
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
 
   const closeModal = () => {
     setModal(false);
@@ -33,11 +40,14 @@ function App() {
       setIsPlaying(!isPlaying);
     }
   };
-  const copyText = () => {
-    if (textRef.current) {
-      navigator.clipboard.writeText(textRef.current.textContent);
-      alert("Teks berhasil disalin!");
-    }
+  const copyText = (ref) => {
+    const text = ref.current.innerText;
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        alert(`Nomor rekening ${text} berhasil disalin!`);
+      })
+      .catch((err) => console.error("Gagal menyalin teks: ", err));
   };
   return (
     <div className="">
@@ -45,35 +55,37 @@ function App() {
       {/* Main */}
       <div
         id="Home"
-        className="h-screen bg-cover flex flex-col justify-center items-center p-5 bg-gradient-to-b from-[#1aa39a] to-[#faae3c]"
+        className="h-auto min-h-screen bg-cover flex flex-col justify-center items-center p-5 bg-gradient-to-b from-[#1aa39a] to-[#faae3c]"
         // style={{
         //   width: "100%",
         //   backgroundImage: `url(${BgImage})`,
         // }}
       >
-        <div className="text-center text-black">
-          <div className="text-5xl capitalize flex flex-col justify-center items-center">
-            <h1 className="font-[Amsterdam] text-4xl ">The wedding of</h1>
+        <div className="text-center text-black w-[90%] max-w-3xl">
+          <div className="text-5xl md:text-3xl lg:text-5xl capitalize flex flex-col justify-center items-center">
+            <h1 className="font-[Amsterdam] text-4xl md:text-4xl ">
+              The wedding of
+            </h1>
             <img
               src={PersonImage}
               alt=""
-              className="w-[18rem] h-[25rem] rounded-b-full py-10"
+              className="w-[18rem] h-[25rem] md:w-[18rem] lg:w-[20rem] rounded-full py-10"
             />
           </div>
-          <div className="text-5xl flex">
+          <div className="text-5xl md:text-5xl flex justify-center">
             <h1 className="font-[Amsterdam]">Doni</h1>
-            <h1 className="font-[Amsterdam] px-5">&</h1>
+            <h1 className="font-[Amsterdam] px-5 md:px-5">&</h1>
             <h1 className="font-[Amsterdam]">Dira</h1>
           </div>
         </div>
-        <div className="text-center text-sm text-black mt-10 font-semibold">
-          <h3 className="py-5">
+        <div className="text-center text-sm md:text-base text-black mt-10 font-semibold">
+          <h3 className="py-5 text-[12px] md:text-sm lg:text-base leading-relaxed">
             وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا
             لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً
             وَّرَحْمَةًۗ اِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ
             ۝٢١{" "}
           </h3>
-          <h3>
+          <h3 className="text-xs md:text-sm lg:text-base leading-relaxed">
             Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan
             pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu
             merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan
@@ -83,7 +95,7 @@ function App() {
         </div>
         <button
           onClick={togglePlayPause}
-          className="bg-white p-2 rounded-full fixed top-5 right-5 cursor-pointer"
+          className="bg-white p-2 rounded-full fixed top-5 right-5 md:top-10 md:right-10 cursor-pointer"
         >
           {isPlaying ? (
             <PiPauseFill size={20} color="black" />
@@ -94,20 +106,22 @@ function App() {
         <audio ref={audioRef} src={Audio} loop></audio>
       </div>
       {/* Main */}
+
       {/* Couple */}
       <div
         id="Couple"
-        className="flex flex-col justify-center items-center p-16 bg-gradient-to-b from-[#faae3c] to-[#1aa39a]"
+        className="flex flex-col justify-center items-center p-10 md:p-16 bg-gradient-to-b from-[#faae3c] to-[#1aa39a]"
+        data-aos="fade-in"
         // style={{
         //   width: "100%",
         //   backgroundImage: `url(${BgImage})`,
         // }}
       >
-        <div className="text-center text-sm text-black font-semibold capitalize">
-          <h1 className="mb-5">
+        <div className="text-center text-sm text-black font-semibold capitalize w-[90%] max-w-lg md:max-w-2xl">
+          <h1 className="mb-5 text-lg md:text-xl">
             ٱلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ ٱللَّٰهِ وَبَرَكَاتُهُ
           </h1>
-          <h3>
+          <h3 className="text-sm md:text-base lg:text-lg leading-relaxed">
             Atas Berkah dan Rahmat Allah Subhanallahu Wa Ta'ala. Tanpa
             mengurangi rasa hormat. Kami mengundang Bapak/Ibu/Saudara/i serta
             kerabat sekalian untuk menghadiri acara pernikahan kami :
@@ -116,31 +130,36 @@ function App() {
             <img
               src={PersonImage}
               alt=""
-              className="w-[15rem] h-[15rem] rounded-full py-5"
+              className="w-[15rem] md:w-40 lg:w-48 h-[15rem] md:h-40 lg:h-48 rounded-full py-5"
             />
-            <h2 className="font-[CormorantGaramond] py-3 text-3xl">Doni</h2>
-            <h4>
-              Anak Kedua dari Pasangan Bapak Saro Mulyadi & Ibu Jasmaeni
-              Beralamat di Kampung Jawa Praya
+            <h2 className="font-[CormorantGaramond] py-3 text-3xl md:text-3xl">
+              Doni
+            </h2>
+            <h4 className="text-sm md:text-base leading-relaxed text-center w-[80%]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit omnis
+              excepturi sint.
             </h4>
           </div>
-          <h1 className="font-[Amsterdam] px-5 text-3xl">&</h1>
+          <h1 className="font-[Amsterdam] px-5 text-3xl md:text-4xl">&</h1>
           <div className="flex flex-col justify-center items-center">
             <img
               src={PersonImage}
               alt=""
-              className="w-[15rem] h-[15rem] rounded-full py-5"
+              className="w-[15rem] md:w-40 lg:w-48 h-[15rem] md:h-40 lg:h-48 rounded-full py-5"
             />
-            <h2 className="font-[CormorantGaramond] py-3 text-3xl">Dira</h2>
-            <h4>
-              Anak Pertama dari Pasangan Bapak Iskandar & Ibu Mainah Beralamat
-              di Dusun Mentokok Desa Penujak
+            <h2 className="font-[CormorantGaramond] py-3 text-3xl md:text-3xl">
+              Dira
+            </h2>
+            <h4 className="text-sm md:text-base leading-relaxed text-center w-[80%]">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+              nam quod
             </h4>
           </div>
         </div>
       </div>
       {/* Couple */}
-      {/* Acara */}
+
+      {/* Date */}
       <div
         id="Date"
         className="h-screen bg-cover flex flex-col justify-center items-center bg-gradient-to-b from-[#1aa39a] to-[#faae3c]"
@@ -150,19 +169,26 @@ function App() {
         // }}
       >
         <div
-          className="w-full p-2 pb-10 h-1/2"
+          className="w-full h-1/2 md:h-[40vh]"
           style={{
             backgroundImage: `url(${PersonImage})`,
             opacity: 0.7,
           }}
         >
-          <div className="mt-50 flex flex-row justify-center items-center text-white">
-            <h1 className="text-6xl font-[Lustria] text-center">Save </h1>
-            <h1 className="text-6xl font-[EyesomeScript] text-center">the </h1>
-            <h1 className="text-6xl font-[Lustria] text-center">Date </h1>
+          <div className="mt-40 flex flex-row justify-center items-center text-white">
+            <h1 className="text-6xl  md:text-5xl lg:text-6xl font-[Lustria] text-center">
+              Save{" "}
+            </h1>
+            <h1 className="text-6xl  md:text-5xl lg:text-6xl font-[EyesomeScript] text-center">
+              the{" "}
+            </h1>
+            <h1 className="text-6xl  md:text-5xl lg:text-6xl font-[Lustria] text-center">
+              Date{" "}
+            </h1>
           </div>
         </div>
-        <div className="w-90 absolute mt-40">
+
+        <div className="w-90 absolute mt-40 max-w-md md:max-w-lg lg:max-w-2xl">
           <div className="card bg-[#1c2229] w-full shadow-md shadow-black">
             <div className="card-body text-white text-center text-md font-[CormorantGaramond]">
               <h1 className="text-2xl font-bold font-[CormorantGaramond]">
@@ -180,6 +206,7 @@ function App() {
             </div>
           </div>
         </div>
+
         <div className="p-2 pt-35">
           <p className="text-center text-white ">
             Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga,
@@ -188,64 +215,92 @@ function App() {
           </p>
         </div>
       </div>
-      {/* Acara */}
+      {/* Date */}
+
       {/* Gallery */}
       <div
         id="Gallery"
-        className="h-screen bg-gradient-to-b from-[#faae3c] to-[#1aa39a]"
+        className="min-h-screen bg-gradient-to-b from-[#faae3c] to-[#1aa39a]"
       >
-        <h1 className="pt-12 text-center mb-5 text-3xl font-[Lustria]">
+        <h1 className="pt-12 text-center mb-5 text-3xl font-[Lustria] md:text-4xl">
           Our Wedding
         </h1>
-        <div className="grid grid-cols-2 gap-2 p-1">
-          <img src={PersonImage} alt="" className="w-[20rem]" />
-          <img src={PersonImage} alt="" className="w-[20rem]" />
+        <div className="grid grid-cols-2 sm:grid-cols-2 place-items-center gap-2 p-1">
+          <img
+            src={PersonImage}
+            alt=""
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-lg object-cover"
+          />
+          <img
+            src={PersonImage}
+            alt=""
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-lg object-cover"
+          />
         </div>
         <div>
-          <h1 className="pl-8 text-center font-[Blanka-Regular] tracking-[2.1rem] text-3xl mb-2">
+          <h1 className="pl-8 text-center font-[Blanka-Regular] tracking-[2.1rem] md:tracking-[3.1rem] text-3xl  md:text-3xl mb-2">
             Gallery
           </h1>
         </div>
-        <div className="grid grid-cols-3 gap-2 p-1">
-          <img src={PersonImage} alt="" className="w-[20rem]" />
-          <img src={PersonImage} alt="" className="w-[20rem]" />
-          <img src={PersonImage} alt="" className="w-[20rem]" />
+        <div className="grid grid-cols-3 gap-2 p-1 sm:grid-cols-2 md:grid-cols-3">
+          <img
+            src={PersonImage}
+            alt=""
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-lg object-cover"
+          />
+          <img
+            src={PersonImage}
+            alt=""
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-lg object-cover"
+          />
+          <img
+            src={PersonImage}
+            alt=""
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md rounded-lg object-cover"
+          />
         </div>
         <div className="flex justify-center w-full h-[12rem] p-1">
-          <img src={WideImage} alt="" className="w-[30rem]" />
+          <img
+            src={WideImage}
+            alt=""
+            className="w-full max-w-lg md:max-w-2xl lg:max-w-4xl rounded-lg object-cover"
+          />
         </div>
       </div>
       {/* Gallery */}
-      {/* Titip Hadiah */}
+
+      {/* Gift */}
       <div
         id="Gift"
-        className="h-screen flex-col justify-center items-center bg-gradient-to-b from-[#1aa39a] to-[#faae3c]"
+        className="min-h-screen flex-col justify-center items-center bg-gradient-to-b from-[#1aa39a] to-[#faae3c]"
       >
-        <div className="flex flex-col justify-center items-center pt-18 self-start ">
+        <div className="text-center pt-18">
           <h1 className="text-4xl font-[Symphony]">Titip Hadiah</h1>
-          <p className="text-justify pt-7 p-5">
+          <p className="text-justify pt-7 p-5 leading-relaxed">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis
             corporis et iusto explicabo perferendis non maxime cumque, id
             laboriosam dolorem vitae consectetur debitis sint, quidem quod illo,
             obcaecati dolore odio?
           </p>
         </div>
-        <div className="pt-5 flex flex-col justify-center items-center ">
-          <div className="card rounded-xl w-[90%] bg-gradient-to-r from-[#1aa39a] from-40% to-[#faae3c] to-20%shadow-sm">
+        <div className="mt-5 flex flex-col justify-center items-center">
+          <div className="card rounded-xl w-[90%] bg-gradient-to-r from-[#1aa39a] to-[#faae3c] shadow-sm p-1.5">
             <div className="card-body">
               <img src={BsiImage} alt="" className="w-[7rem] self-end" />
               <img src={ChipImage} alt="" className="w-[60px] h-[40px] " />
-              <p ref={textRef} className="">
-                1212121212
-              </p>
+              <p className="">1212121212</p>
               <p>Stapanus</p>
               <div className="card-actions justify-end">
-                <button onClick={copyText} className="btn btn-primary">
+                <button
+                  onClick={() => copyText(bsiRef)}
+                  className="btn btn-primary hover:bg-blue-600"
+                >
                   Copy
                 </button>
               </div>
             </div>
           </div>
+
           <div className="card rounded-xl w-[90%] bg-gradient-to-r from-[#faae3c] from-40% to-[#1aa39a] to-20%shadow-sm mt-3">
             <div className="card-body">
               <img src={MandiriImage} alt="" className="w-[7rem] self-end" />
@@ -253,13 +308,18 @@ function App() {
               <p>151515151515</p>
               <p>Stapanus</p>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">Copy</button>
+                <button
+                  onClick={() => copyText(mandiriRef)}
+                  className="btn btn-primary hover:bg-blue-600"
+                >
+                  Copy
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {/* Titip Hadiah */}
+      {/* Gift */}
       {/* Footer */}
       <div className="flex flex-col justify-center items-center h-screen">
         <h1>Footer</h1>
